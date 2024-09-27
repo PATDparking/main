@@ -6,105 +6,216 @@
     <link rel="stylesheet" href="style.css">
     <title>TREZOR</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .input-group {
-            margin-bottom: 10px;
+        .underline {
+            display: block;
+            width: 100px; /* Délka čáry */
+            height: 1px; /* Tloušťka čáry */
+            background-color: black; /* Barva čáry */
+            margin: 5px 0; /* Vzdálenost čáry od textu */
         }
     </style>
 </head>
 <body>
     <div class="container">
-        
-            <h1>TREZOR</h1>
-            <label for="username">Zadejte jméno:</label>
-            <input type="text" id="username" placeholder="Vaše jméno">
-            
-            <div class="input-group">
-                <label for="nom5000">5000 Kč:</label>
-                <input type="number" id="nom5000" value="0">
+        <h1>TREZOR</h1>
+        <label for="username">Zadejte jméno:</label>
+        <input type="text" id="username" placeholder="Vaše jméno">
+
+        <div class="input-group">
+            <label for="nom5000">5000 Kč:</label>
+            <input type="number" id="nom5000" value="0" readonly>
+            <div class="button-group">
+                <button onclick="openModal('nom5000', 'add')">Vložit</button>
+                <button onclick="openModal('nom5000', 'subtract')">Vybrat</button>
+            </div>
+            <div class="total-container">
                 <span id="total5000">0</span> Kč
             </div>
-    
-            <div class="input-group">
-                <label for="nom2000">2000 Kč:</label>
-                <input type="number" id="nom2000" value="0">
+            <div class="history" id="history5000"></div> <!-- Historie -->
+        </div>
+        
+        <div class="input-group">
+            <label for="nom2000">2000 Kč:</label>
+            <input type="number" id="nom2000" value="0" readonly>
+            <div class="button-group">
+                <button onclick="openModal('nom2000', 'add')">Vložit</button>
+                <button onclick="openModal('nom2000', 'subtract')">Vybrat</button>
+            </div>
+            
+            <div class="total-container">
                 <span id="total2000">0</span> Kč
             </div>
-    
-            <div class="input-group">
-                <label for="nom1000">1000 Kč:</label>
-                <input type="number" id="nom1000" value="0">
+            <div class="history" id="history2000"></div> <!-- Historie -->
+        </div>
+        
+        <div class="input-group">
+            <label for="nom1000">1000 Kč:</label>
+            <input type="number" id="nom1000" value="0" readonly>
+            <div class="button-group">
+                <button onclick="openModal('nom1000', 'add')">Vložit</button>
+                <button onclick="openModal('nom1000', 'subtract')">Vybrat</button>
+            </div>
+            
+            <div class="total-container">
                 <span id="total1000">0</span> Kč
             </div>
-    
-            <div class="input-group">
-                <label for="nom500">500 Kč:</label>
-                <input type="number" id="nom500" value="0">
+            <div class="history" id="history1000"></div> <!-- Historie -->
+        </div>
+        
+        <div class="input-group">
+            <label for="nom500">500 Kč:</label>
+            <input type="number" id="nom500" value="0" readonly>
+            <div class="button-group">
+                <button onclick="openModal('nom500', 'add')">Vložit</button>
+                <button onclick="openModal('nom500', 'subtract')">Vybrat</button>
+            </div>
+          
+            <div class="total-container">
                 <span id="total500">0</span> Kč
             </div>
-    
-            <div class="input-group">
-                <label for="nom200">200 Kč:</label>
-                <input type="number" id="nom200" value="0">
+            <div class="history" id="history500"></div> <!-- Historie -->
+        </div>
+        
+        <div class="input-group">
+            <label for="nom200">200 Kč:</label>
+            <input type="number" id="nom200" value="0" readonly>
+            <div class="button-group">
+                <button onclick="openModal('nom200', 'add')">Vložit</button>
+                <button onclick="openModal('nom200', 'subtract')">Vybrat</button>
+            </div>
+            
+            <div class="total-container">
                 <span id="total200">0</span> Kč
             </div>
-    
-            <div class="input-group">
-                <label for="nom100">100 Kč:</label>
-                <input type="number" id="nom100" value="0">
+            <div class="history" id="history200"></div> <!-- Historie -->
+        </div>
+        
+        <div class="input-group">
+            <label for="nom100">100 Kč:</label>
+            <input type="number" id="nom100" value="0" readonly>
+            <div class="button-group">
+                <button onclick="openModal('nom100', 'add')">Vložit</button>
+                <button onclick="openModal('nom100', 'subtract')">Vybrat</button>
+            </div>
+            
+            <div class="total-container">
                 <span id="total100">0</span> Kč
             </div>
-    
-            <div class="input-group">
-                <label for="nom50">50 Kč:</label>
-                <input type="number" id="nom50" value="0">
+            <div class="history" id="history100"></div> <!-- Historie -->
+        </div>
+        
+        <div class="input-group">
+            <label for="nom50">50 Kč:</label>
+            <input type="number" id="nom50" value="0" readonly>
+            <div class="button-group">
+                <button onclick="openModal('nom50', 'add')">Vložit</button>
+                <button onclick="openModal('nom50', 'subtract')">Vybrat</button>
+            </div>
+            
+            <div class="total-container">
                 <span id="total50">0</span> Kč
             </div>
-    
-            <div class="input-group">
-                <label for="nom20">20 Kč:</label>
-                <input type="number" id="nom20" value="0">
+            <div class="history" id="history50"></div> <!-- Historie -->
+        </div>
+        
+        <div class="input-group">
+            <label for="nom20">20 Kč:</label>
+            <input type="number" id="nom20" value="0" readonly>
+            <div class="button-group">
+                <button onclick="openModal('nom20', 'add')">Vložit</button>
+                <button onclick="openModal('nom20', 'subtract')">Vybrat</button>
+            </div>
+           
+            <div class="total-container">
                 <span id="total20">0</span> Kč
             </div>
-    
-            <div class="input-group">
-                <label for="nom10">10 Kč:</label>
-                <input type="number" id="nom10" value="0">
+            <div class="history" id="history20"></div> <!-- Historie -->
+        </div>
+        
+        <div class="input-group">
+            <label for="nom10">10 Kč:</label>
+            <input type="number" id="nom10" value="0" readonly>
+            <div class="button-group">
+                <button onclick="openModal('nom10', 'add')">Vložit</button>
+                <button onclick="openModal('nom10', 'subtract')">Vybrat</button>
+            </div>
+            
+            <div class="total-container">
                 <span id="total10">0</span> Kč
             </div>
-    
-            <div class="input-group">
-                <label for="nom5">5 Kč:</label>
-                <input type="number" id="nom5" value="0">
+            <div class="history" id="history10"></div> <!-- Historie -->
+        </div>
+        
+        <div class="input-group">
+            <label for="nom5">5 Kč:</label>
+            <input type="number" id="nom5" value="0" readonly>
+            <div class="button-group">
+                <button onclick="openModal('nom5', 'add')">Vložit</button>
+                <button onclick="openModal('nom5', 'subtract')">Vybrat</button>
+            </div>
+            
+            <div class="total-container">
                 <span id="total5">0</span> Kč
             </div>
-    
-            <div class="input-group">
-                <label for="nom2">2 Kč:</label>
-                <input type="number" id="nom2" value="0">
+            <div class="history" id="history5"></div> <!-- Historie -->
+        </div>
+        
+        <div class="input-group">
+            <label for="nom2">2 Kč:</label>
+            <input type="number" id="nom2" value="0" readonly>
+            <div class="button-group">
+                <button onclick="openModal('nom2', 'add')">Vložit</button>
+                <button onclick="openModal('nom2', 'subtract')">Vybrat</button>
+            </div>
+            
+            <div class="total-container">
                 <span id="total2">0</span> Kč
             </div>
-    
-            <div class="input-group">
-                <label for="nom1">1 Kč:</label>
-                <input type="number" id="nom1" value="0">
+            <div class="history" id="history2"></div> <!-- Historie -->
+        </div>
+        
+        <div class="input-group">
+            <label for="nom1">1 Kč:</label>
+            <input type="number" id="nom1" value="0" readonly>
+            <div class="button-group">
+                <button onclick="openModal('nom1', 'add')">Vložit</button>
+                <button onclick="openModal('nom1', 'subtract')">Vybrat</button>
+            </div>
+            
+            <div class="total-container">
                 <span id="total1">0</span> Kč
             </div>
-    
-            <div class="input-group">
-                <button onclick="calculateAndSave()">Spočítat</button>
-            </div>
-    
-            <h2>Celková částka: <span id="totalAmount">0</span> Kč</h2>
-            
-            <h2>Historie výpočtů:</h2>
-            <div id="history"></div>
+            <div class="history" id="history1"></div> <!-- Historie -->
         </div>
+        
+        
+        
     
-        <script src="script.js"></script> <!-- Předpokládaný název vašeho JS souboru -->
+
+        <div class="input-group">
+            <button onclick="calculateAndSave()">ZAPSAT</button>
+        </div>
+
+        <h2>Celková částka: <span id="totalAmount">0</span> Kč</h2>
+
+        <h2>Historie výpočtů:</h2>
+        <div id="history"></div>
+        <button onclick="clearHistory()">Smazat celou historii</button>
+    </div>
+
+    <!-- Modal pro zadání částky -->
+    <div id="modal" style="display: none;">
+        <div id="modal-content">
+            <h2 id="modal-title"></h2>
+            <label for="modal-input">Částka:</label>
+            <input type="number" id="modal-input" value="0">
+            <button onclick="submitModal()">Potvrdit</button>
+            <button onclick="closeModal()">Zavřít</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    
 </body>
 </html>

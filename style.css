@@ -13,36 +13,38 @@ body {
     background: #ffffff; /* Bílé pozadí */
     border-radius: 12px; /* Zaoblené rohy */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Jemný stín */
-    padding: 30px; /* Vnitřní padding */
+    padding: 40px; /* Vnitřní padding zvětšeno */
 }
 
 /* Heading styles */
 h1 {
     text-align: center; /* Vycentrování textu */
     color: #343a40; /* Tmavě šedá barva textu */
-    margin-bottom: 20px; /* Mezera pod nadpisem */
-    font-size: 2.5em; /* Velikost písma */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Jemný stín pro nadpis */
+    margin-bottom: 30px; /* Mezera pod nadpisem zvětšena */
+    font-size: 3em; /* Velikost písma zvětšena */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); /* Jemný stín pro nadpis */
 }
 
 h2 {
     color: #495057; /* Barva pro podnadpis */
     border-bottom: 2px solid #007BFF; /* Spodní okraj v modré barvě */
-    padding-bottom: 10px; /* Mezera pod podnadpisem */
-    margin-bottom: 20px; /* Mezera pod podnadpisem */
-    font-size: 1.75em; /* Velikost písma pro podnadpis */
+    padding-bottom: 15px; /* Mezera pod podnadpisem zvětšena */
+    margin-bottom: 30px; /* Mezera pod podnadpisem zvětšena */
+    font-size: 2em; /* Velikost písma pro podnadpis zvětšena */
 }
 
 /* Input group styles */
 .input-group {
     display: flex; /* Flexbox pro zarovnání */
-    align-items: center; /* Vertikální zarovnání na střed */
-    justify-content: space-between; /* Rozložení mezi prvky */
-    margin-bottom: 15px; /* Mezera pod skupinou */
-    padding: 10px; /* Vnitřní padding */
+    justify-content: space-between; /* Změna orientace na sloupec */
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-bottom: 10px; /* Mezera pod skupinou zvětšena */
+    padding: 30px; /* Vnitřní padding zvětšeno */
     border-radius: 8px; /* Zaoblené rohy */
     background-color: #f8f9fa; /* Světle šedé pozadí */
     transition: background-color 0.3s, transform 0.2s; /* Efekt na pozadí a transformaci */
+    border: 1px solid #ced4da; /* Přidání okraje */
 }
 
 .input-group:hover {
@@ -50,22 +52,38 @@ h2 {
     transform: scale(1.02); /* Zvýšení při hover */
 }
 
+/* Button container for deposit/withdraw buttons */
+.button-group {
+    display: flex; /* Flexbox pro umístění tlačítek vedle sebe */
+    gap: 15px; /* Mezera mezi tlačítky zvětšena */
+    padding-top: 10px;
+}
+
+/* Right group styles */
+.right-group {
+    display: flex; /* Používá flexbox pro pravou část */
+    align-items: center; /* Zarovná prvky vertikálně na střed */
+    justify-content: flex-end; /* Zarovná prvky na pravou stranu */
+}
+
 /* Label styles */
 label {
-    flex: 1; /* Flexibilní šířka pro popis */
     color: #6c757d; /* Šedá barva popisu */
     font-weight: 600; /* Tučný popis */
+    font-size: 1.1em; /* Velikost písma zvětšena */
 }
 
 /* Input field styles */
 input[type="number"],
 input[type="text"] {
-    flex: 2; /* Flexibilní šířka pro vstup */
-    padding: 12px; /* Vnitřní padding */
+    width: 100%; /* Šířka vstupu na 100 % */
+    max-width: 300px; /* Maximální šířka pro vstup */
+    padding: 15px; /* Vnitřní padding zvětšeno */
     border: 1px solid #ced4da; /* Světle šedý okraj */
     border-radius: 6px; /* Zaoblené rohy */
     transition: border-color 0.3s, box-shadow 0.3s; /* Efekt na zaostření */
-    font-size: 1em; /* Velikost písma */
+    font-size: 1.2em; /* Velikost písma zvětšena */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Jemný vnitřní stín */
 }
 
 input[type="number"]:focus,
@@ -78,7 +96,10 @@ input[type="text"]:focus {
 /* Total display styles */
 span {
     font-weight: bold; /* Tučný text */
-    color: #007BFF; /* Modrá barva pro celkovou částku */
+    color: #3c81cc; /* Modrá barva pro celkovou částku */
+    margin-top: 10px; /* Mezera nad celkovou částkou zvětšena */
+    text-align: left; /* Zarovnání textu na střed */
+    font-size: 1.9em; /* Velikost písma zvětšena */
 }
 
 /* Button styles */
@@ -86,10 +107,10 @@ button {
     background-color: #007BFF; /* Modré pozadí pro tlačítko */
     color: white; /* Bílé písmo */
     border: none; /* Odebrání defaultního okraje */
-    padding: 12px 24px; /* Vnitřní padding */
+    padding: 10px 20px; /* Vnitřní padding zvětšeno */
     border-radius: 6px; /* Zaoblené rohy */
     cursor: pointer; /* Změna kurzoru na pointer */
-    font-size: 1.1em; /* Velikost písma */
+    font-size: 1em; /* Velikost písma zvětšena */
     transition: background-color 0.3s, transform 0.2s; /* Efekty na hover */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Jemný stín */
 }
@@ -101,20 +122,20 @@ button:hover {
 
 /* History styles */
 #history {
-    margin-top: 20px; /* Horní mezera */
-    padding: 15px; /* Vnitřní padding */
+    margin-top: 30px; /* Horní mezera zvětšena */
+    padding: 20px; /* Vnitřní padding zvětšeno */
     border: 1px solid #dee2e6; /* Světle šedý okraj */
     border-radius: 6px; /* Zaoblené rohy */
     background: #f9f9f9; /* Světle šedé pozadí pro historii */
-    max-height: 200px; /* Maximální výška */
+    max-height: 300px; /* Maximální výška zvětšena */
     overflow-y: auto; /* Skrolování v případě přetečení */
 }
 
 /* History entry styles */
 .history-entry {
-    padding: 10px; /* Vnitřní padding */
+    padding: 15px; /* Vnitřní padding zvětšeno */
     border-bottom: 1px solid #ddd; /* Světle šedý oddělovač */
-    font-size: 0.95em; /* Velikost písma pro položky historie */
+    font-size: 1em; /* Velikost písma pro položky historie zvětšena */
     color: #495057; /* Tmavě šedá barva pro text historie */
     transition: background-color 0.3s; /* Přechod na pozadí */
 }
@@ -131,9 +152,9 @@ button:hover {
     background-color: #dc3545; /* Červené pozadí pro tlačítko smazat */
     border: none; /* Odebrání defaultního okraje */
     color: white; /* Bílé písmo */
-    padding: 5px 10px; /* Vnitřní padding */
+    padding: 8px 15px; /* Vnitřní padding zvětšeno */
     border-radius: 4px; /* Zaoblené rohy */
-    font-size: 0.85em; /* Velikost písma pro tlačítko */
+    font-size: 0.95em; /* Velikost písma pro tlačítko zvětšena */
     transition: background-color 0.3s; /* Přechod pro tlačítko */
 }
 
@@ -144,15 +165,82 @@ button:hover {
 /* Responsive design */
 @media (max-width: 600px) {
     .input-group {
-        flex-direction: column; /* Změna orientace pro malé obrazovky */
         align-items: flex-start; /* Zarovnání vlevo */
     }
 
     .input-group label {
-        margin-bottom: 5px; /* Mezera pod popiskem */
+        margin-bottom: 8px; /* Mezera pod popiskem zvětšena */
     }
 
     button {
         width: 100%; /* Šířka tlačítka na 100 % pro mobilní zařízení */
     }
+}
+
+#modal {
+    display: none; /* Skryté ve výchozím stavu */
+    justify-content: center; /* Upravte pro vycentrování */
+    align-items: center; /* Upravte pro vycentrování */
+    position: fixed; /* Připojeno k oknu */
+    top: 0;
+    left: 0;
+    width: 100%; /* Šířka 100% */
+    height: 100%; /* Výška 100% */
+    background-color: rgba(0, 0, 0, 0.5); /* Poloprůhledné pozadí */
+    z-index: 1000; /* Zajištění, že modal je nad ostatními prvky */
+}
+
+#modal-content {
+    background-color: #fff; /* Bílé pozadí */
+    padding: 30px; /* Padding uvnitř modal */
+    border-radius: 8px; /* Zaoblené rohy */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Stín */
+    width: 90%; /* Šířka modalu */
+    max-width: 500px; /* Maximální šířka modalu */
+    margin: auto; /* Vycentrování */
+}
+
+#modal-title {
+    text-align: center; /* Vycentrování textu */
+    font-size: 1.5em; /* Velikost písma zvětšena */
+}
+
+/* Přidejte další styly pro modal, pokud je to potřeba */
+.history {
+    margin-top: 15px; /* Horní mezera zvětšena */
+    font-size: 1em; /* Velikost písma zvětšena */
+    color: rgb(0, 0, 0); /* Šedá barva pro historii */
+    padding: 10px;
+    background-color: #d6d6d6d7;
+    border-radius: 8px;
+    flex-basis: 100%; /* Zajistí, že historie bude přes celou šířku */
+    margin-top: 10px; /* Malá mezera nahoře */
+}
+.input-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Zarovnání všech prvků nahoru */
+    margin-bottom: 10px;
+}
+.input-group label, 
+.input-group input, 
+.input-group textarea {
+    flex-basis: 20%;
+    margin-right: 10px;
+}
+
+.button-group {
+    display: flex;
+    gap: 5px;
+}
+
+
+
+
+.total-container {
+    width: 100%; /* Zajistí, že se použije celá šířka */
+    margin-top: 5px; /* Přidá mezeru nad celkovou částkou */
+    text-align: left; /* Zarovná text nalevo */
+    font-weight: bold; /* Tučné písmo pro celkovou částku */
+    color: #3c81cc; /* Barva pro celkovou částku */
 }

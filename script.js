@@ -1,4 +1,42 @@
-// Funkce pro uložení hodnot do LocalStorage včetně jména
+let currentField = '';
+let currentAction = '';
+
+// Funkce pro otevření modalu
+function openModal(fieldId, action) {
+    currentField = fieldId;
+    currentAction = action;
+    
+    document.getElementById("modal").style.display = "block";
+    document.getElementById("modal-title").innerText = action === 'add' ? 'Vložit částku' : 'Vybrat částku';
+}
+
+// Funkce pro zavření modalu
+function closeModal() {
+    document.getElementById("modal").style.display = "none";
+    document.getElementById("modal-input").value = ''; // Vyčistit input
+}
+
+// Funkce pro potvrzení a uložení hodnoty z modalu
+function submitModal() {
+    const value = parseInt(document.getElementById("modal-input").value) || 0;
+    const inputField = document.getElementById(currentField);
+    let currentValue = parseInt(inputField.value) || 0;
+
+    if (currentAction === 'add') {
+        currentValue += value;
+        saveToDepositHistory(currentField, value); // Uložení do historie vkladů
+    } else if (currentAction === 'subtract') {
+        currentValue = Math.max(currentValue - value, 0); // Nenechat jít do mínusu
+        saveToWithdrawalHistory(currentField, value); // Uložení do historie výběrů
+    }
+
+    inputField.value = currentValue;
+    
+    calculateTotal(); // Přepočítat celkovou částku
+    closeModal(); // Zavřít modal
+}
+
+// Funkce pro ukládání hodnot do LocalStorage
 function saveInputValues() {
     const inputs = [
         "nom100", "nom200", "nom500", "nom1000", "nom2000", "nom5000",
@@ -10,7 +48,7 @@ function saveInputValues() {
     });
 }
 
-// Funkce pro načtení hodnot z LocalStorage včetně jména
+// Funkce pro načtení hodnot z LocalStorage
 function loadInputValues() {
     const inputs = [
         "nom100", "nom200", "nom500", "nom1000", "nom2000", "nom5000",
@@ -37,7 +75,7 @@ function updateTotalsOnLoad() {
     });
 }
 
-// Funkce pro ukládání historie výpočtů do LocalStorage včetně jména
+// Funkce pro ukládání historie výpočtů do LocalStorage
 function saveToHistory(data, total, username) {
     let history = JSON.parse(localStorage.getItem("history")) || [];
     history.push({ username, data, total, date: new Date().toLocaleString() });
@@ -51,37 +89,27 @@ function displayHistory() {
     const history = JSON.parse(localStorage.getItem("history")) || [];
     historyContainer.innerHTML = ""; // Vyčistit předchozí historii
 
+    // Iterace přes historii a zobrazení každého záznamu jako blok
     history.forEach((item, index) => {
         const entry = document.createElement("div");
         entry.classList.add("history-entry");
+        entry.style.border = "1px solid #ccc"; // Přidání okraje pro oddělení
+        entry.style.margin = "10px 0"; // Vzdálenost mezi záznamy
+        entry.style.padding = "10px"; // Vnitřní okraj
         
-        // Vytvoření tabulky pro přehlednost
-        const table = document.createElement("table");
-        const headerRow = document.createElement("tr");
-        headerRow.innerHTML = `
-            <th>Datum</th>
-            <th>Jméno</th>
-            <th>Nominály</th>
-            <th>Celkem</th>
-            <th>Akce</th>
-        `;
-        table.appendChild(headerRow);
-        
-        const dataRow = document.createElement("tr");
         const nominals = JSON.stringify(item.data, null, 2).replace(/"/g, '');
-        dataRow.innerHTML = `
-            <td>${item.date}</td>
-            <td>${item.username}</td>
-            <td><pre>${nominals}</pre></td>
-            <td>${item.total} Kč</td>
-            <td><button onclick="deleteHistoryEntry(${index})">Smazat</button></td>
+        entry.innerHTML = `
+            <strong>Datum:</strong> ${item.date}<br>
+            <strong>Jméno:</strong> ${item.username}<br>
+            <strong>Nominály:</strong><pre>${nominals}</pre><br>
+            <strong>Celkem:</strong> ${item.total} Kč<br>
+            <button onclick="deleteHistoryEntry(${index})">Smazat</button>
         `;
-        table.appendChild(dataRow);
         
-        entry.appendChild(table);
-        historyContainer.appendChild(entry);
+        historyContainer.appendChild(entry); // Přidat záznam do kontejneru
     });
 }
+
 
 // Funkce pro smazání záznamu z historie
 function deleteHistoryEntry(index) {
@@ -90,6 +118,84 @@ function deleteHistoryEntry(index) {
     localStorage.setItem("history", JSON.stringify(history));
     displayHistory();
 }
+
+// Funkce pro ukládání historie vkladů
+function saveToDepositHistory(fieldId, amount) {
+    let history = JSON.parse(localStorage.getItem(`${fieldId}DepositHistory`)) || [];
+    history.push({ amount, date: new Date().toLocaleString() });
+    localStorage.setItem(`${fieldId}DepositHistory`, JSON.stringify(history));
+    displayDepositHistory(fieldId);
+}
+
+// Funkce pro ukládání historie výběrů
+function saveToWithdrawalHistory(fieldId, amount) {
+    let history = JSON.parse(localStorage.getItem(`${fieldId}WithdrawalHistory`)) || [];
+    history.push({ amount, date: new Date().toLocaleString() });
+    localStorage.setItem(`${fieldId}WithdrawalHistory`, JSON.stringify(history));
+    displayWithdrawalHistory(fieldId);
+}
+
+// Funkce pro zobrazení historie vkladů
+function displayDepositHistory(fieldId) {
+    const historyContainer = document.getElementById(`history${fieldId.slice(3)}`);
+    const history = JSON.parse(localStorage.getItem(`${fieldId}DepositHistory`)) || [];
+    historyContainer.innerHTML = ""; // Vyčistit předchozí historii
+
+    history.forEach((item, index) => {
+        const entry = document.createElement("div");
+        entry.innerText = `Vloženo: ${item.amount} Kč, Datum: ${item.date}`;
+
+        // Přidání tlačítka pro smazání záznamu
+        const deleteButton = document.createElement("button");
+        deleteButton.innerText = "Smazat";
+        deleteButton.onclick = function () {
+            deleteDepositHistoryEntry(fieldId, index);
+        };
+
+        entry.appendChild(deleteButton); // Přidat tlačítko do záznamu
+        historyContainer.appendChild(entry);
+    });
+}
+
+// Funkce pro smazání záznamu z historie vkladů
+function deleteDepositHistoryEntry(fieldId, index) {
+    let history = JSON.parse(localStorage.getItem(`${fieldId}DepositHistory`)) || [];
+    history.splice(index, 1); // Odebrat záznam na daném indexu
+    localStorage.setItem(`${fieldId}DepositHistory`, JSON.stringify(history));
+    displayDepositHistory(fieldId); // Aktualizovat zobrazení
+}
+
+
+// Funkce pro zobrazení historie výběrů
+function displayWithdrawalHistory(fieldId) {
+    const historyContainer = document.getElementById(`history${fieldId.slice(3)}`);
+    const history = JSON.parse(localStorage.getItem(`${fieldId}WithdrawalHistory`)) || [];
+    historyContainer.innerHTML = ""; // Vyčistit předchozí historii
+
+    history.forEach((item, index) => {
+        const entry = document.createElement("div");
+        entry.innerText = `Vybráno: ${item.amount} Kč, Datum: ${item.date}`;
+
+        // Přidání tlačítka pro smazání záznamu
+        const deleteButton = document.createElement("button");
+        deleteButton.innerText = "Smazat";
+        deleteButton.onclick = function () {
+            deleteWithdrawalHistoryEntry(fieldId, index);
+        };
+
+        entry.appendChild(deleteButton); // Přidat tlačítko do záznamu
+        historyContainer.appendChild(entry);
+    });
+}
+
+// Funkce pro smazání záznamu z historie výběrů
+function deleteWithdrawalHistoryEntry(fieldId, index) {
+    let history = JSON.parse(localStorage.getItem(`${fieldId}WithdrawalHistory`)) || [];
+    history.splice(index, 1); // Odebrat záznam na daném indexu
+    localStorage.setItem(`${fieldId}WithdrawalHistory`, JSON.stringify(history));
+    displayWithdrawalHistory(fieldId); // Aktualizovat zobrazení
+}
+
 
 // Hlavní funkce pro výpočet
 function calculateTotal() {
@@ -107,7 +213,6 @@ function calculateTotal() {
     const nom20 = parseInt(document.getElementById("nom20").value) || 0;
     const nom50 = parseInt(document.getElementById("nom50").value) || 0;
 
-    // Celkové hodnoty pro každý nominál
     const total100 = nom100 * 100;
     const total200 = nom200 * 200;
     const total500 = nom500 * 500;
@@ -122,7 +227,6 @@ function calculateTotal() {
     const total20 = nom20 * 20;
     const total50 = nom50 * 50;
 
-    // Zobrazit jednotlivé celkové hodnoty
     document.getElementById("total100").innerText = total100;
     document.getElementById("total200").innerText = total200;
     document.getElementById("total500").innerText = total500;
@@ -137,26 +241,21 @@ function calculateTotal() {
     document.getElementById("total20").innerText = total20;
     document.getElementById("total50").innerText = total50;
 
-    // Celková částka všech nominálů
     const total = total100 + total200 + total500 + total1000 + total2000 + total5000 +
                   total1 + total2 + total5 + total10 + total20 + total50;
 
-    // Zobrazit celkovou částku
     document.getElementById("totalAmount").innerText = total;
 
-    // Uložit do LocalStorage
     saveInputValues();
     localStorage.setItem("totalAmount", total);
 }
 
-// Funkce volaná po kliknutí na tlačítko Spočítat, která také uloží výsledek do historie
+// Funkce volaná po kliknutí na tlačítko Spočítat
 function calculateAndSave() {
     calculateTotal();
 
-    // Získání hodnoty jména
     const username = document.getElementById("username").value || "Neznámé";
 
-    // Získání dat z formuláře
     const data = {
         nom100: parseInt(document.getElementById("nom100").value) || 0,
         nom200: parseInt(document.getElementById("nom200").value) || 0,
@@ -172,13 +271,34 @@ function calculateAndSave() {
         nom50: parseInt(document.getElementById("nom50").value) || 0
     };
 
-    // Získání celkové částky
     const total = parseInt(document.getElementById("totalAmount").innerText) || 0;
 
-    // Uložit do historie včetně jména
     saveToHistory(data, total, username);
 }
-  
+
+// Inicializační funkce po načtení stránky
+window.onload = function() {
+    loadInputValues();
+    updateTotalsOnLoad();
+    displayHistory();
+    const totalAmount = localStorage.getItem("totalAmount") || 0;
+    document.getElementById("totalAmount").innerText = totalAmount;
+
+    // Zobrazit historii pro každé pole
+    const fields = [
+        "nom100", "nom200", "nom500", "nom1000", "nom2000", "nom5000",
+        "nom1", "nom2", "nom5", "nom10", "nom20", "nom50"
+    ];
+
+    fields.forEach(fieldId => {
+        displayDepositHistory(fieldId);
+        displayWithdrawalHistory(fieldId);
+    });
+
+    // Přidat event listener pro automatickou aktualizaci celkových částek
+    updateTotalOnChange();
+};
+
 // Funkce pro aktualizaci celkové částky při změně hodnoty v polích
 function updateTotalOnChange() {
     const inputs = [
@@ -190,15 +310,3 @@ function updateTotalOnChange() {
         document.getElementById(id).addEventListener("input", calculateTotal);
     });
 }
-
-// Načíst hodnoty při načtení stránky
-window.onload = function() {
-    loadInputValues();
-    updateTotalsOnLoad();  // Přidáno pro načtení celkových částek
-    displayHistory();
-    const totalAmount = localStorage.getItem("totalAmount") || 0;
-    document.getElementById("totalAmount").innerText = totalAmount;
-
-    // Přidat event listener pro automatickou aktualizaci celkových částek
-    updateTotalOnChange();
-};
