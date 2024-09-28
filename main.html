@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hlavní menu</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5; /* Jemně šedé pozadí */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .menu-container {
+            text-align: center;
+            background-color: #ffffff; /* Bílé pozadí */
+            padding: 60px; /* Větší vnitřní padding */
+            border-radius: 12px; /* Zaoblené rohy */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Jemný stín */
+            max-width: 400px; /* Maximální šířka */
+            width: 100%; /* Přizpůsobí se menším obrazovkám */
+        }
+
+        h1 {
+            color: #333; /* Tmavě šedá barva textu */
+            margin-bottom: 10px; /* Menší mezera pod nadpisem */
+            font-size: 2.2em; /* Zvětšení nadpisu */
+        }
+
+        #datetime {
+            font-size: 1.2em;
+            color: #666; /* Světlejší šedá barva pro čas a datum */
+            margin-bottom: 30px; /* Větší mezera pod časem a datem */
+        }
+
+        .menu-button {
+            background-color: #007BFF; /* Modré tlačítko */
+            color: white;
+            border: none;
+            padding: 15px;
+            margin: 15px 0; /* Větší mezery mezi tlačítky */
+            font-size: 1.2em;
+            border-radius: 8px; /* Zaoblené rohy */
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s; /* Přidání přechodů pro animaci */
+            width: 100%; /* Tlačítko na celou šířku */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Jemný stín tlačítka */
+        }
+
+        .menu-button:hover {
+            background-color: #0056b3; /* Tmavší modrá při hoveru */
+            transform: translateY(-2px); /* Zvednutí tlačítka při hoveru */
+        }
+
+        /* Responsivní design - pro menší obrazovky */
+        @media (max-width: 600px) {
+            .menu-container {
+                padding: 40px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            .menu-button {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+
+    <div class="menu-container">
+        <h1>Hlavní menu</h1>
+        <button class="menu-button" onclick="window.location.href='index.html'">Trezor</button> <!-- Odkaz na stránku Trezor -->
+        <button class="menu-button" onclick="window.location.href='listky.html'">Lístky</button> <!-- Odkaz na stránku Lístky -->
+    </div>
+    <script>
+        function updateDateTime() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const formattedDate = now.toLocaleDateString('cs-CZ', options);
+            const formattedTime = now.toLocaleTimeString('cs-CZ');
+
+            // Zobrazení času a data
+            document.getElementById("datetime").innerHTML = `${formattedDate}, ${formattedTime}`;
+        }
+
+        // Aktualizace každou sekundu
+        setInterval(updateDateTime, 1000);
+
+        // První načtení při otevření stránky
+        updateDateTime();
+    </script>
+</body>
+</html>

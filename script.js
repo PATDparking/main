@@ -40,7 +40,7 @@ function submitModal() {
 function saveInputValues() {
     const inputs = [
         "nom100", "nom200", "nom500", "nom1000", "nom2000", "nom5000",
-        "nom1", "nom2", "nom5", "nom10", "nom20", "nom50", "username" // Přidáno "username"
+        "nom1", "nom2", "nom5", "nom10", "nom20", "nom50", "bags", "username" // Přidáno "username"
     ];
     inputs.forEach(id => {
         const value = document.getElementById(id).value || 0;
@@ -52,12 +52,16 @@ function saveInputValues() {
 function loadInputValues() {
     const inputs = [
         "nom100", "nom200", "nom500", "nom1000", "nom2000", "nom5000",
-        "nom1", "nom2", "nom5", "nom10", "nom20", "nom50", "username" // Přidáno "username"
+        "nom1", "nom2", "nom5", "nom10", "nom20", "nom50", "bags", "username" // Přidáno "username"
     ];
     inputs.forEach(id => {
-        const value = localStorage.getItem(id) || "";
+        const value = localStorage.getItem(id) || 0; // Načtení hodnoty z localStorage
         document.getElementById(id).value = value;
     });
+
+    // Načtení a zobrazení hodnoty pro počet pytlů
+    const bags = localStorage.getItem("bags") || 0;
+    document.getElementById("totalBags").innerText = bags.toLocaleString() + " "; // Aktualizace zobrazení počtu pytlů
 }
 
 // Funkce pro aktualizaci celkových částek při načtení stránky
@@ -143,7 +147,7 @@ function displayDepositHistory(fieldId) {
 
     history.forEach((item, index) => {
         const entry = document.createElement("div");
-        entry.innerText = `Vloženo: ${item.amount} Kč, Datum: ${item.date}`;
+        entry.innerText = `Vloženo: ${item.amount} KS, Datum: ${item.date}`;
 
         // Přidání tlačítka pro smazání záznamu
         const deleteButton = document.createElement("button");
@@ -174,7 +178,7 @@ function displayWithdrawalHistory(fieldId) {
 
     history.forEach((item, index) => {
         const entry = document.createElement("div");
-        entry.innerText = `Vybráno: ${item.amount} Kč, Datum: ${item.date}`;
+        entry.innerText = `Vybráno: ${item.amount} KS, Datum: ${item.date}`;
 
         // Přidání tlačítka pro smazání záznamu
         const deleteButton = document.createElement("button");
@@ -246,9 +250,25 @@ function calculateTotal() {
 
     document.getElementById("totalAmount").innerText = total;
 
+// Zobrazení počtu pytlů
+    const bags = parseInt(document.getElementById("bags").value) || 0;
+    document.getElementById("totalBags").innerText = bags.toLocaleString() + " ";
+
+
+
     saveInputValues();
     localStorage.setItem("totalAmount", total);
 }
+
+// Funkce pro sledování změn v input poli pro pytle
+document.getElementById("bags").addEventListener("input", function() {
+    const value = this.value || 0; // Získání hodnoty z input pole
+    localStorage.setItem("bags", value); // Uložení hodnoty do localStorage
+   
+    calculateTotal(); // Aktualizace celkové částky
+});
+
+
 
 // Funkce volaná po kliknutí na tlačítko Spočítat
 function calculateAndSave() {

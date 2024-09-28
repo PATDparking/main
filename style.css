@@ -234,6 +234,25 @@ button:hover {
     gap: 5px;
 }
 
+.full-width-button {
+    width: 100%; /* Šířka tlačítka na 100 % */
+    box-sizing: border-box; /* Zajistí, že padding a border se započítají do šířky */
+    background-color: #007BFF; /* Barva pozadí */
+    color: white; /* Barva textu */
+    border: none; /* Odebrání defaultního okraje */
+    padding: 20px; /* Větší vnitřní padding */
+    font-size: 1.5em; /* Zvýšení velikosti písma */
+    border-radius: 6px; /* Zaoblené rohy */
+    cursor: pointer; /* Změna kurzoru na pointer */
+    transition: background-color 0.3s, transform 0.2s; /* Efekty na hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Jemný stín */
+}
+
+.full-width-button:hover {
+    background-color: #0056b3; /* Tmavší modrá při hover */
+    transform: translateY(-2px); /* Mírný posun nahoru při hover */
+}
+
 
 
 
@@ -243,4 +262,16 @@ button:hover {
     text-align: left; /* Zarovná text nalevo */
     font-weight: bold; /* Tučné písmo pro celkovou částku */
     color: #3c81cc; /* Barva pro celkovou částku */
+}
+#summary {
+    background-color: #f8f9fa; /* Světle šedé pozadí */
+    border: 1px solid #ced4da; /* Světle šedý okraj */
+    border-radius: 6px; /* Zaoblené rohy */
+    padding: 10px; /* Menší vnitřní padding */
+    margin-top: 10px; /* Vzdálenost nad souhrnem */
+    font-size: 1em; /* Menší velikost písma */
+    color: #343a40; /* Tmavě šedá barva textu */
+    display: grid; /* Použití gridu pro rozdělení do sloupců */
+    grid-template-columns: repeat(2, 1fr); /* Dva stejné sloupce */
+    gap: 10px; /* Mezera mezi položkami */
 }

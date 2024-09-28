@@ -18,6 +18,7 @@
 </head>
 <body>
     <div class="container">
+        <button class="home-button" onclick="window.location.href='main.html'">Domů</button>
         <h1>TREZOR</h1>
         <label for="username">Zadejte jméno:</label>
         <input type="text" id="username" placeholder="Vaše jméno">
@@ -191,17 +192,29 @@
         
         
         
-    
+        <h2>Celková částka: <span id="totalAmount">0</span> Kč</h2>
+        <div id="summary"></div>
+        
 
         <div class="input-group">
-            <button onclick="calculateAndSave()">ZAPSAT</button>
+            <button class="full-width-button" onclick="calculateAndSave()">ZAPSAT</button>
+        </div>
+        
+
+       
+
+        <div class="input-group">
+            <label for="bags">Počet pytlů:</label>
+            <input type="number" id="bags" value="0">
+            <div class="total-container">
+                <span id="totalBags">0</span> 
+            </div>
         </div>
 
-        <h2>Celková částka: <span id="totalAmount">0</span> Kč</h2>
 
         <h2>Historie výpočtů:</h2>
         <div id="history"></div>
-        <button onclick="clearHistory()">Smazat celou historii</button>
+        
     </div>
 
     <!-- Modal pro zadání částky -->
