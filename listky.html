@@ -50,6 +50,7 @@ h1 {
 .slider {
     width: 100%;
     cursor: pointer; /* Změna kurzoru na pointer */
+    
 }
 
 .status {
@@ -89,6 +90,7 @@ h1 {
     outline: none; /* Odebrání rámečku při zaostření */
     transition: background 0.3s; /* Plynulý přechod pozadí */
     position: relative; /* Relativní pozice pro pseudo-element */
+    
 }
 
 .slider:hover {
@@ -106,6 +108,7 @@ h1 {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Jemný stín */
     position: relative; /* Relativní pozice pro thumb */
     z-index: 1; /* Zajištění, že thumb je nad barvou */
+    
 }
 
 .slider::-moz-range-thumb {
@@ -115,6 +118,7 @@ h1 {
     border-radius: 50%; /* Kulatý tvar */
     cursor: pointer; /* Změna kurzoru na pointer */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Jemný stín */
+    
 }
 
 /* Tlačítko "Domů" */
@@ -174,11 +178,54 @@ h1 {
     transition: background-color 0.3s, transform 0.2s; /* Přidání přechodu pro změnu barvy */
 }
 
+.fade-in {
+    transition: opacity 0.5s ease-in-out;
+    opacity: 1;
+}
+input[type="range"]:disabled {
+    opacity: 0.9;
+    cursor: not-allowed;
+    scale: 0.9;
+    
+}
+
+button {
+    background-color: #007BFF; /* Primární modrá barva */
+    color: white; /* Bílý text */
+    border: none; /* Žádné okraje */
+    padding: 10px 20px; /* Velikost tlačítka */
+    margin-top: 10px;
+    font-size: 16px; /* Velikost textu */
+    font-weight: bold; /* Zvýrazněný text */
+    border-radius: 8px; /* Zaoblené rohy */
+    cursor: pointer; /* Ukazatel myši */
+    transition: background-color 0.3s, transform 0.3s ease; /* Přechod pro plynulé změny */
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); /* Jemný stín pro efekt */
+}
+
+button:hover {
+    background-color: #0056b3; /* Tmavší modrá při najetí */
+    transform: scale(1.05); /* Mírné zvětšení tlačítka při hoveru */
+}
+
+button:active {
+    background-color: #004494; /* Ještě tmavší modrá při kliknutí */
+    transform: scale(0.98); /* Mírné zmenšení při kliknutí */
+}
+
+button:disabled {
+    background-color: #cccccc; /* Šedá pro neaktivní stav */
+    color: #666666; /* Ztlumený text */
+    cursor: not-allowed; /* Ukazatel pro neaktivní tlačítko */
+    box-shadow: none; /* Žádný stín při deaktivaci */
+}
+
+
     </style>
 </head>
 <body>
     <button class="home-button" onclick="window.location.href='main.html'">Domů</button>
-    <h1>Aplikace pro správu lístků</h1>
+    <h1>SPRÁVA LÍSTKŮ</h1>
     <div class="container" id="standsContainer">
         <!-- Stojany se sloty pro lístky se budou generovat pomocí JavaScriptu -->
     </div>

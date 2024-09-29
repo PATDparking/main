@@ -7,7 +7,7 @@ function openModal(fieldId, action) {
     currentAction = action;
     
     document.getElementById("modal").style.display = "block";
-    document.getElementById("modal-title").innerText = action === 'add' ? 'Vložit částku' : 'Vybrat částku';
+    document.getElementById("modal-title").innerText = action === 'add' ? 'Vložit počet kusů' : 'Vybrat počet kusů';
 }
 
 // Funkce pro zavření modalu
@@ -33,7 +33,24 @@ function submitModal() {
     inputField.value = currentValue;
     
     calculateTotal(); // Přepočítat celkovou částku
+    
+    showConfirmation("Operace byla úspěšná!");
+
     closeModal(); // Zavřít modal
+}
+
+function showConfirmation(message) {
+    const confirmationBox = document.createElement('div');
+    confirmationBox.classList.add('confirmation');
+    confirmationBox.innerHTML = `
+        ${message}
+        <div class="loading-bar"></div>
+    `;
+    document.body.appendChild(confirmationBox);
+    
+    setTimeout(() => {
+        confirmationBox.remove();
+    }, 2000); // Zpráva zmizí po 2 sekundách
 }
 
 // Funkce pro ukládání hodnot do LocalStorage
@@ -330,3 +347,4 @@ function updateTotalOnChange() {
         document.getElementById(id).addEventListener("input", calculateTotal);
     });
 }
+ 

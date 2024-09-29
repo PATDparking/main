@@ -5,80 +5,222 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hlavní menu</title>
     <style>
-        body {
+      /* Globální styly */
+      body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5; /* Jemně šedé pozadí */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            background-color: #f0f4f8;
             margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
         }
 
+        h1, h2 {
+            color: #333;
+        }
+
+        /* Styl pro kontejner menu */
         .menu-container {
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+            margin-bottom: 30px;
             text-align: center;
-            background-color: #ffffff; /* Bílé pozadí */
-            padding: 60px; /* Větší vnitřní padding */
-            border-radius: 12px; /* Zaoblené rohy */
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Jemný stín */
-            max-width: 400px; /* Maximální šířka */
-            width: 100%; /* Přizpůsobí se menším obrazovkám */
         }
 
         h1 {
-            color: #333; /* Tmavě šedá barva textu */
-            margin-bottom: 10px; /* Menší mezera pod nadpisem */
-            font-size: 2.2em; /* Zvětšení nadpisu */
+            font-size: 2.2em;
+            margin-bottom: 10px;
         }
 
-        #datetime {
-            font-size: 1.2em;
-            color: #666; /* Světlejší šedá barva pro čas a datum */
-            margin-bottom: 30px; /* Větší mezera pod časem a datem */
+        h2 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #666;
         }
 
         .menu-button {
-            background-color: #007BFF; /* Modré tlačítko */
+            background-color: #007BFF;
             color: white;
             border: none;
             padding: 15px;
-            margin: 15px 0; /* Větší mezery mezi tlačítky */
+            margin: 10px 0;
             font-size: 1.2em;
-            border-radius: 8px; /* Zaoblené rohy */
+            border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s; /* Přidání přechodů pro animaci */
-            width: 100%; /* Tlačítko na celou šířku */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Jemný stín tlačítka */
+            transition: background-color 0.3s, transform 0.2s;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .menu-button:hover {
-            background-color: #0056b3; /* Tmavší modrá při hoveru */
-            transform: translateY(-2px); /* Zvednutí tlačítka při hoveru */
+            background-color: #0056b3;
+            transform: translateY(-3px);
         }
 
-        /* Responsivní design - pro menší obrazovky */
-        @media (max-width: 600px) {
-            .menu-container {
-                padding: 40px;
-            }
-            h1 {
-                font-size: 1.8em;
-            }
-            .menu-button {
-                font-size: 1.1em;
-            }
+        /* Styl pro To-Do List */
+        .todo-container {
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+            margin-top: 20px;
         }
+
+        #taskInput {
+            width: 80%;
+            padding: 12px;
+            font-size: 1.1em;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        #addTaskButton {
+            padding: 12px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+        }
+
+        #addTaskButton:hover {
+            background-color: #0056b3;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.3s ease;
+        }
+
+        li:hover {
+            background-color: #f0f2f5;
+        }
+
+        input[type="checkbox"] {
+            width: 25px;
+            height: 25px;
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            padding: 8px 12px;
+        }
+
+        button:hover {
+            background-color: #c82333;
+        }
+
+        /* Tlačítko Zpět na hlavní stránce */
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Fade-in efekt při načítání stránky */
+.fade-in {
+    opacity: 0;
+    animation: fadeInAnimation 1s forwards;
+}
+@keyframes fadeInAnimation {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+        
     </style>
 </head>
 <body>
-    
+<div class="menu-container">
+    <div id="connection-indicator" style="display: none; padding: 10px; text-align: center; font-weight: bold;"></div>
+<h2>ASISTENT ASISTENTA</h4/2>
+    <div id="datetime"></div> <!-- Zobrazí datum a čas -->
+    <h1 id="greeting">VÍTEJ V PRÁCI</h1>
 
+    <H2> LETIŠTĚ PRAHA</H2>
+</div>
     <div class="menu-container">
+        
         <h1>Hlavní menu</h1>
         <button class="menu-button" onclick="window.location.href='index.html'">Trezor</button> <!-- Odkaz na stránku Trezor -->
         <button class="menu-button" onclick="window.location.href='listky.html'">Lístky</button> <!-- Odkaz na stránku Lístky -->
+        
     </div>
+
+    <div class="todo-container">
+        <h1>To-Do List</h1>
+        <div>
+            <input type="text" id="taskInput" placeholder="Přidej nový úkol..." />
+            <button id="addTaskButton">Přidat úkol</button>
+        </div>
+
+        <ul id="taskList">
+            <!-- Úkoly se zobrazí zde -->
+        </ul>
+    </div>
+
     <script>
+
+
+function updateGreeting() {
+    const now = new Date();
+    const hours = now.getHours();
+    let greeting;
+
+    if (hours < 12) {
+        greeting = 'DOBRÉ RÁNO!';
+    } else if (hours < 18) {
+        greeting = 'DOBRÉ ODPOLEDNE!';
+    } else {
+        greeting = 'KRÁSNOU NOČNÍ!';
+    }
+
+    document.getElementById("greeting").innerText = greeting;
+}
+
+// Zavolání funkce při načtení stránky
+window.onload = updateGreeting;
+
+
         function updateDateTime() {
             const now = new Date();
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -94,6 +236,128 @@
 
         // První načtení při otevření stránky
         updateDateTime();
+
+        // Funkce pro přidání úkolu
+        document.getElementById('addTaskButton').addEventListener('click', function() {
+            const taskInput = document.getElementById('taskInput');
+            const taskText = taskInput.value.trim();
+
+            if (taskText) {
+                const taskList = document.getElementById('taskList');
+
+                // Vytvoření nového seznamu úkolů
+                const li = document.createElement('li');
+                li.textContent = taskText;
+
+                // Přidání tlačítka pro odstranění úkolu
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Odstranit';
+                deleteButton.addEventListener('click', function() {
+                    taskList.removeChild(li); // Odstranění úkolu ze seznamu
+                    saveTasks(); // Uložení úkolů po odstranění
+                });
+
+                // Přidání checkboxu pro označení úkolu jako dokončeného
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.addEventListener('change', function() {
+                    if (checkbox.checked) {
+                        li.style.textDecoration = 'line-through'; // Přeškrtnutí úkolu
+                    } else {
+                        li.style.textDecoration = ''; // Obnovení stylu
+                    }
+                });
+
+                li.appendChild(checkbox);
+                li.appendChild(deleteButton);
+                taskList.appendChild(li); // Přidání úkolu do seznamu
+
+                taskInput.value = ''; // Vyčištění inputu
+
+                saveTasks(); // Uložení úkolů po přidání
+            } else {
+                alert('Prosím zadej úkol.'); // Varování, pokud je input prázdný
+            }
+        });
+
+        // Funkce pro uložení úkolů do localStorage
+        function saveTasks() {
+            const taskList = document.getElementById('taskList');
+            const tasks = [];
+
+            for (let i = 0; i < taskList.children.length; i++) {
+                tasks.push({
+                    text: taskList.children[i].childNodes[0].textContent,
+                    completed: taskList.children[i].childNodes[1].checked
+                });
+            }
+
+            localStorage.setItem('tasks', JSON.stringify(tasks)); // Uložení úkolů do localStorage
+        }
+
+        // Funkce pro načtení úkolů z localStorage
+        function loadTasks() {
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            const taskList = document.getElementById('taskList');
+
+            tasks.forEach(task => {
+                const li = document.createElement('li');
+                li.textContent = task.text;
+
+                                // Přidání tlačítka pro odstranění úkolu
+                                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Odstranit';
+                deleteButton.addEventListener('click', function() {
+                    taskList.removeChild(li); // Odstranění úkolu ze seznamu
+                    saveTasks(); // Uložení úkolů po odstranění
+                });
+
+                // Přidání checkboxu pro označení úkolu jako dokončeného
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.checked = task.completed; // Nastavení stavu checkboxu na základě uloženého úkolu
+                checkbox.addEventListener('change', function() {
+                    if (checkbox.checked) {
+                        li.style.textDecoration = 'line-through'; // Přeškrtnutí úkolu
+                    } else {
+                        li.style.textDecoration = ''; // Obnovení stylu
+                    }
+                    saveTasks(); // Uložení úkolů po změně stavu
+                });
+
+                // Nastavení přeškrtnutí úkolu při načtení
+                if (task.completed) {
+                    li.style.textDecoration = 'line-through';
+                }
+
+                li.appendChild(checkbox);
+                li.appendChild(deleteButton);
+                taskList.appendChild(li); // Přidání úkolu do seznamu
+            });
+        }
+// Funkce pro aktualizaci indikátoru připojení
+function updateConnectionIndicator() {
+    const indicator = document.getElementById('connection-indicator');
+    if (navigator.onLine) {
+        indicator.style.display = 'none'; // Skrýt indikátor, pokud je online
+    } else {
+        indicator.style.display = 'block'; // Zobrazit indikátor, pokud je offline
+        indicator.innerText = 'Jsste offline. Některé funkce nemusí být dostupné.';
+        indicator.style.backgroundColor = '#f44336'; // Červená barva pro offline
+        indicator.style.color = 'white'; // Bílý text
+    }
+}
+
+// Přidání posluchačů událostí pro online a offline
+window.addEventListener('online', updateConnectionIndicator);
+window.addEventListener('offline', updateConnectionIndicator);
+
+// Inicializace indikátoru při načtení stránky
+updateConnectionIndicator();
+
+        // Načtení uložených úkolů při načtení stránky
+        loadTasks();
     </script>
 </body>
 </html>
+

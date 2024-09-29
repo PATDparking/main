@@ -275,3 +275,37 @@ button:hover {
     grid-template-columns: repeat(2, 1fr); /* Dva stejné sloupce */
     gap: 10px; /* Mezera mezi položkami */
 }
+
+.confirmation {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 1000;
+    overflow: hidden;
+    display: inline-block;
+    width: 250px;
+    box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+}
+
+.confirmation .loading-bar {
+    height: 4px;
+    background-color: #fff; /* Barva načítací čáry */
+    width: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    animation: loading 2s linear forwards; /* Délka animace 2 sekundy */
+}
+
+@keyframes loading {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
